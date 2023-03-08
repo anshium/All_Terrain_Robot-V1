@@ -119,10 +119,10 @@ void loop() {
   }
 
   //serial monitor print
-  Serial.print(data1);
-  Serial.print(data2);
-  Serial.print(data3);
   Serial.print(data4);
+  Serial.print(data3);
+  Serial.print(data2);
+  Serial.print(data1);
   Serial.println();
   
   t++;
