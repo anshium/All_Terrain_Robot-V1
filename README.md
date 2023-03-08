@@ -11,3 +11,6 @@
 * BKW Turning Right: 1111
 * Turning Left No Motion: 1000
 * Turning Right No Motion: 1100
+
+Pin1 == HIGH && Pin2 == LOW => FWD
+Pin2 == HIGH && Pin2 == LOW => Backward
