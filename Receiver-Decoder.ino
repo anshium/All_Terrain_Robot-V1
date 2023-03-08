@@ -65,6 +65,8 @@ void setup() {
   //also stop all DC motors
   digitalWrite(dcm_pin1, LOW);
   digitalWrite(dcm_pin2, LOW);
+
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -116,6 +118,13 @@ void loop() {
     }
   }
 
+  //serial monitor print
+  Serial.print(data1);
+  Serial.print(data2);
+  Serial.print(data3);
+  Serial.print(data4);
+  Serial.println();
+  
   t++;
   t_scaled = t/60;
 }
