@@ -24,7 +24,8 @@
  * FWD Turning Right: 1110
  * BKW Turning Left: 1011
  * BKW Turning Right: 1111
- * Turning Left No Motion: 
+ * Turning Left No Motion: 1000
+ * Turning Right No Motion: 1100
  * **/
 
 //Global center value holding identifiers
