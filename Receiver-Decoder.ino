@@ -108,7 +108,7 @@ void loop() {
         }
       } else if(data4 == 1){
         //right
-        if(servo_default_angle + t_scaled <= max_servo_angle) && (servo_default_angle - t_scaled >= min_servo_angle)){
+        if((servo_default_angle + t_scaled <= max_servo_angle) && (servo_default_angle - t_scaled >= min_servo_angle)){
           forward_servo.write(servo_default_angle - t_scaled);
           backward_servo.write(servo_default_angle + t_scaled);
         }
