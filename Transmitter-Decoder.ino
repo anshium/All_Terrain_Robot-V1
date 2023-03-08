@@ -45,7 +45,7 @@ int aus3;
 int aus4;
 
 //Global buffer value, after which the signal should be high
-float  buff = 100;
+float buff = 100;
 
 //Normalised Values of Joystick inputs
 float nor_JS1Y;
@@ -115,4 +115,10 @@ void loop() {
   digitalWrite(out2, aus2);
   digitalWrite(out3, aus3);
   digitalWrite(out4, aus4);
+
+  Serial.print(aus4);
+  Serial.print(aus3);
+  Serial.print(aus2);
+  Serial.print(aus1);
+  Serial.println();
 }
