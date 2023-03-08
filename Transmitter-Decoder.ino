@@ -14,6 +14,19 @@
 #define JS2X A2 //Second Joystick X-Coordinate
 #define JS2Y A3 //Second Joystick Y-Coordinate
 */
+
+//rules
+/** LSB->FWD(0)/BKW(1), LSB + 1-> Motion(1)/No-Motion(0), LSB + 2-> Left Turning(0)/Right Turning(1), LSB + 3-> Turning(1)/No-Turning(0)
+ * Don't acre states are treated as 0
+ * FWD No-Turning: 0010
+ * BKW No-Turning: 0011
+ * FWD Turning Left: 1010
+ * FWD Turning Right: 1110
+ * BKW Turning Left: 1011
+ * BKW Turning Right: 1111
+ * Turning Left No Motion: 
+ * **/
+
 //Global center value holding identifiers
 float JS1Y_init_val;
 float JS2X_init_val;
@@ -48,7 +61,7 @@ void setup() {
   //initialise the center-most values of the joystick. This code assumes that the joysticks were not pulled during initialisation.
   //Initialisation happens everytime Arduino is reset.
   JS1Y_init_val = analogRead(A0);
-  JS2X_init_val = analogRead(A1);
+  JS2X_init_val = analogRead(A2);
 
   //Serial.begin()
   Serial.begin(9600);
@@ -56,5 +69,8 @@ void setup() {
 
 void loop() {
   //Serial.println(analogRead(A0) - JS1Y_init_val);
-  nor
+  //normalized values of joystick inputs
+  nor_JS1Y = analogRead(A0) - JS1Y_init_val;
+  nor_JS2X = analogRead(A2) - JS2X_init_val;
+
 }
