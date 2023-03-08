@@ -24,11 +24,11 @@ float forward_servo_angle = 90;
 float backward_servo_angle = 90;
 
 //Pins for DC motors
-int dcm_pin1 = 9;
-int dcm_pin2 = 10;
+int dcm_pin1 = 3;
+int dcm_pin2 = 4;
 
 //Defining pins for input signals from receiver
-int in1 = 3;
+int in1 = 8;
 int in2 = 9;
 int in3 = 10;
 int in4 = 11;
