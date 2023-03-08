@@ -15,6 +15,10 @@ Servo backward_servo;
 //Servo default position
 float servo_default_angle = 90;
 
+//current angle of servo motors
+float forward_servo_angle = 90;
+float backward_servo_angle = 90;
+
 //Pins for DC motors
 int dcm_pin1 = 9;
 int dcm_pin2 = 10;
@@ -31,58 +35,79 @@ int data2;
 int data3;
 int data4;
 
+//time
+int t = 0;
+int t_scaled;
 //driver code
 void setup() {
-  //The input pins should ben defined as input
-  pinMode(in1, INPUT);
-  pinMode(in2, INPUT);
-  pinMode(in3, INPUT);
-  pinMode(in4, INPUT);
-  
-  //Servos to be attached to two pwm pins
-  forward_servo.attach(5);
-  backward_servo.attach(6);
+//The input pins should ben defined as input
+pinMode(in1, INPUT);
+pinMode(in2, INPUT);
+pinMode(in3, INPUT);
+pinMode(in4, INPUT);
 
-  //The output pins for DC motors
-  pinMode(dcm_pin1, OUTPUT);
-  pinMode(dcm_pin2, OUTPUT);
-  
-  //On start or reset, set the Servo motors to default position
-  forward_servo.write(servo_default_angle);
-  backward_servo.write(servo_default_angle);
+//Servos to be attached to two pwm pins
+forward_servo.attach(5);
+backward_servo.attach(6);
 
-  //also stop all DC motors
-  digitalWrite(dcm_pin1, LOW);
-  digitalWrite(dcm_pin2, LOW);
+//The output pins for DC motors
+pinMode(dcm_pin1, OUTPUT);
+pinMode(dcm_pin2, OUTPUT);
+
+//On start or reset, set the Servo motors to default position
+forward_servo.write(servo_default_angle);
+backward_servo.write(servo_default_angle);
+
+//also stop all DC motors
+digitalWrite(dcm_pin1, LOW);
+digitalWrite(dcm_pin2, LOW);
 }
 
 void loop() {
-  //reading the received signal as input
-  data1 = digitalRead(in1);
-  data2 = digitalRead(in2);
-  data3 = digitalRead(in3);
-  data4 = digitalRead(in4);
+//reading the received signal as input
+data1 = digitalRead(in1);
+data2 = digitalRead(in2);
+data3 = digitalRead(in3);
+data4 = digitalRead(in4);
 
-  if(data1 == 0 && data2 == 0 && data3 == 0 && data4 == 0){
-    //put all 6 DC motos to rest
-    //On start or reset, set the Servo motors to default position
+if(data1 == 0 && data2 == 0 && data3 == 0 && data4 == 0){
+  //put all 6 DC motos to rest
+  //On start or reset, set the Servo motors to default position
+  digitalWrite(dcm_pin1, LOW);
+  digitalWrite(dcm_pin2, LOW);
+} else{
+  //first giving commands to the 6 motors
+  if(data2 == 1){ //if motion
+    if(data1 == 0){
+      //forward
+      digitalWrite(dcm_pin1, HIGH);
+      digitalWrite(dcm_pin2, LOW);
+    } else if(data1 == 1){
+      //backward
+      digitalWrite(dcm_pin1, LOW);
+      digitalWrite(dcm_pin2, HIGH);
+    }
+  } else{ //else shut these motors off
     digitalWrite(dcm_pin1, LOW);
     digitalWrite(dcm_pin2, LOW);
-  } else{
-    //first giving commands to the 6 motors
-    if(data2 == 1){
-      if(data1 == 0){
-        //forward
-        digitalWrite(dcm_pin1, HIGH);
-        digitalWrite(dcm_pin2, LOW);
-      } else if(data1 == 1){
-        //backward
-        digitalWrite(dcm_pin1, LOW);
-        digitalWrite(dcm_pin2, HIGH);
-      }
-    } else{
-      digitalWrite(dcm_pin1, LOW);
-      digitalWrite(dcm_pin2, LOW);
-    }
   }
+
+  //now for turning commands
+  if(data4 == 1){
+    if(data3 == 0){
+      //left
+      forward_servo.write(t_scaled++);
+      backward_servo.write(t_scaled--);
+    } else if(data4 == 1){
+      //right
+      forward_servo.write(t_scaled--);
+      backward_servo.write(t_scaled++);
+    }
+  } else{
+    //else just relax B)
+  }
+}
+
+t++;
+t_scaled = t/60;
 }
