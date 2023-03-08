@@ -1,0 +1,60 @@
+//Joystick analog to 4 bit encoder code
+//(Transmitter Code)
+//8th March, 2023
+//The goal is to write code that would take the analog inputs of both the coordinates of two joystick and convert it into a 4-bit signal. 
+//One joystick would control the forward and the backward motion, that is four center wheels and the other would control whether or not to
+//rotate the back and front servos.
+
+/*Macros to define joystick inputs
+//First Joystick (Only Y would be used)#redundancy but easier to control with this control design
+#define JS1X A0 //First Joystick X-Coordinate
+#define JS1Y A1 //First Joystick Y-Coordinate
+
+//Second Joystick (Only X would be used)
+#define JS2X A2 //Second Joystick X-Coordinate
+#define JS2Y A3 //Second Joystick Y-Coordinate
+*/
+//Global center value holding identifiers
+float JS1Y_init_val;
+float JS2X_init_val;
+
+//Global Variables holding pin numbers of output signals (4-bit)
+int out1 = 5;
+int out2 = 6;
+int out3 = 7;
+int out4 = 8;
+
+//Global buffer value, after which the signal should be high
+float  buff = 100;
+
+//Normalised Values of Joystick inputs
+float nor_JS1Y;
+float nor_JS2X;
+
+//driver code
+void setup() {
+  //initialise the pins of Joystick as inputs
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(A2, INPUT);
+  pinMode(A3, INPUT);
+
+  //Initialise output pins
+  pinMode(out1, OUTPUT);
+  pinMode(out2, OUTPUT);
+  pinMode(out3, OUTPUT);
+  pinMode(out4, OUTPUT);
+  
+  //initialise the center-most values of the joystick. This code assumes that the joysticks were not pulled during initialisation.
+  //Initialisation happens everytime Arduino is reset.
+  JS1Y_init_val = analogRead(A0);
+  JS2X_init_val = analogRead(A1);
+
+  //Serial.begin()
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Serial.println(analogRead(A0) - JS1Y_init_val);
+  nor
+}
